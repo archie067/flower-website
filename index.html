@@ -1,26 +1,209 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <title>Happy Girlfriend's Day</title>
   <style>
-    body { background: #fce4ec; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    body {
+      background: #fce4ec;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      transition: background 1s;
+    }
+    
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
     .flower {
       width: 0;
       height: 0;
       border-radius: 50%;
       border: 50px solid pink;
-      animation: bloom 3s forwards;
+      cursor: pointer;
+      transition: all 1s ease-out;
+      position: relative;
+      margin-bottom: 30px;
     }
-    @keyframes bloom {
-      to {
-        width: 100px;
-        height: 100px;
-        border-width: 0px;
-        background: radial-gradient(pink, deeppink);
-      }
+    
+    .flower.bloomed {
+      width: 200px;
+      height: 200px;
+      border-width: 0;
+      background: radial-gradient(circle, #ffc0cb, #ff69b4, #db7093);
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+    }
+    
+    .flower:hover {
+      transform: scale(1.05);
+    }
+    
+    .message {
+      max-height: 0;
+      overflow: hidden;
+      color: #db7093;
+      font-size: 0;
+      transition: all 1s ease-out;
+      margin-top: 20px;
+    }
+    
+    .message.show {
+      max-height: 200px;
+      font-size: 24px;
+      color: #db7093;
+    }
+    
+    .petals {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    
+    .petal {
+      position: absolute;
+      background: linear-gradient(to bottom right, #ffc0cb, #ff69b4);
+      border-radius: 50% 0 50% 50%;
+      opacity: 0;
+      transition: all 1s ease-out;
+    }
+    
+    .heart {
+      position: absolute;
+      font-size: 40px;
+      opacity: 0;
+      transition: all 1s ease-out;
+      color: #ff1493;
+      pointer-events: none;
+    }
+    
+    button {
+      background: linear-gradient(to right, #ff69b4, #ff1493);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: all 0.3s;
+    }
+    
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    
+    .bloom-text {
+      font-size: 18px;
+      color: #ff69b4;
+      margin-bottom: 20px;
     }
   </style>
 </head>
 <body>
-  <div class="flower"></div>
+  <div class="container">
+    <h1 style="color: #db7093;">Happy Girlfriend's Day!</h1>
+    <p class="bloom-text">Click or hover on the flower to make it bloom</p>
+    
+    <div class="flower" id="flower">
+      <div class="petals" id="petals"></div>
+      <div class="heart">❤️</div>
+    </div>
+    
+    <div class="message" id="message">
+      To the most amazing girlfriend in the world!<br>
+      Thank you for being you. ❤️
+    </div>
+    
+    <button id="resetBtn">Make it bloom again</button>
+  </div>
+
+  <script>
+    const flower = document.getElementById('flower');
+    const message = document.getElementById('message');
+    const petalsContainer = document.getElementById('petals');
+    const resetBtn = document.getElementById('resetBtn');
+    const heart = document.querySelector('.heart');
+    
+    // Create petals
+    for (let i = 0; i < 12; i++) {
+      const petal = document.createElement('div');
+      petal.className = 'petal';
+      petalsContainer.appendChild(petal);
+    }
+    
+    // Position petals in a circle
+    const petals = document.querySelectorAll('.petal');
+    const radius = 100;
+    const center = 100;
+    
+    petals.forEach((petal, index) => {
+      const angle = (index * 30) * (Math.PI / 180);
+      const x = center + radius * Math.cos(angle) - 15;
+      const y = center + radius * Math.sin(angle) - 15;
+      
+      petal.style.width = '30px';
+      petal.style.height = '30px';
+      petal.style.left = `${x}px`;
+      petal.style.top = `${y}px`;
+      petal.style.transform = `rotate(${index * 30}deg)`;
+    });
+    
+    // Bloom functions
+    function bloomFlower() {
+      flower.classList.add('bloomed');
+      message.classList.add('show');
+      
+      // Animate petals
+      petals.forEach(petal => {
+        petal.style.opacity = '1';
+        petal.style.transform += ' scale(1.5)';
+      });
+      
+      // Animate heart
+      setTimeout(() => {
+        heart.style.opacity = '1';
+        heart.style.transform = 'scale(1.5)';
+      }, 500);
+      
+      // Change background
+      document.body.style.background = '#fff0f5';
+    }
+    
+    function resetFlower() {
+      flower.classList.remove('bloomed');
+      message.classList.remove('show');
+      
+      petals.forEach(petal => {
+        petal.style.opacity = '0';
+        petal.style.transform = petal.style.transform.replace('scale(1.5)', '');
+      });
+      
+      heart.style.opacity = '0';
+      heart.style.transform = 'scale(1)';
+      
+      document.body.style.background = '#fce4ec';
+    }
+    
+    // Event listeners
+    flower.addEventListener('click', bloomFlower);
+    flower.addEventListener('mouseenter', bloomFlower);
+    resetBtn.addEventListener('click', () => {
+      resetFlower();
+      setTimeout(bloomFlower, 100);
+    });
+    
+    // Initial bloom after a delay
+    setTimeout(bloomFlower, 1000);
+  </script>
 </body>
 </html>
