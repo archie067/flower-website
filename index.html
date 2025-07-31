@@ -1,94 +1,224 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Happy Girlfriend's Day My Love</title>
+  <title>Happy Girlfriend's Day Babe!</title>
   <style>
     body {
-      background: #fce4ec;
+      background: #fff9fb;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
       font-family: 'Arial', sans-serif;
       text-align: center;
-      transition: background 1s;
+      overflow-x: hidden;
     }
     
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    .flower {
-      width: 0;
-      height: 0;
-      border-radius: 50%;
-      border: 50px solid pink;
-      cursor: pointer;
-      transition: all 1s ease-out;
-      position: relative;
+    h1 {
+      color: #d23c77;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
       margin-bottom: 30px;
     }
     
-    .flower.bloomed {
-      width: 200px;
-      height: 200px;
-      border-width: 0;
-      background: radial-gradient(circle, #ffc0cb, #ff69b4, #db7093);
-      box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+    .bouquet {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      max-width: 800px;
+      margin: 20px 0;
+      position: relative;
+    }
+    
+    .vase {
+      width: 120px;
+      height: 150px;
+      background: linear-gradient(to right, #9c7a97, #b895b3);
+      border-radius: 10px 10px 0 0;
+      position: absolute;
+      bottom: -140px;
+      z-index: 1;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .vase:after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 0;
+      width: 100%;
+      height: 20px;
+      background: linear-gradient(to right, #7d5e79, #9c7a97);
+      border-radius: 0 0 10px 10px;
+    }
+    
+    .flower {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.5s ease;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
     
     .flower:hover {
-      transform: scale(1.05);
+      transform: translateY(-10px) scale(1.1);
     }
     
-    .message {
+    .flower.bloomed {
+      transform: scale(1.2);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    
+    /* Rose */
+    .rose {
+      background: radial-gradient(circle, #ffcce6, #ff66b3, #e60073);
+    }
+    
+    .rose .center {
+      width: 20px;
+      height: 20px;
+      background: #ff0080;
+      border-radius: 50%;
+    }
+    
+    .rose .petal {
+      position: absolute;
+      background: linear-gradient(to bottom right, #ff99cc, #ff3399);
+      border-radius: 50% 50% 50% 0;
+      width: 30px;
+      height: 30px;
+      opacity: 0;
+      transition: all 0.5s ease;
+    }
+    
+    .rose.bloomed .petal {
+      opacity: 1;
+    }
+    
+    /* Tulip */
+    .tulip {
+      background: radial-gradient(circle, #ffd6e7, #ff85b2, #ff2d7f);
+    }
+    
+    .tulip .center {
+      width: 15px;
+      height: 15px;
+      background: #ff0066;
+      border-radius: 50%;
+    }
+    
+    .tulip .petal {
+      position: absolute;
+      background: linear-gradient(to bottom right, #ffb3d9, #ff66a3);
+      width: 25px;
+      height: 40px;
+      border-radius: 50% 50% 0 0;
+      opacity: 0;
+      transition: all 0.5s ease;
+    }
+    
+    .tulip.bloomed .petal {
+      opacity: 1;
+    }
+    
+    /* Lily */
+    .lily {
+      background: radial-gradient(circle, #ffe6f2, #ffb3d9, #ff80bf);
+    }
+    
+    .lily .center {
+      width: 25px;
+      height: 25px;
+      background: #ff4da6;
+      border-radius: 50%;
+    }
+    
+    .lily .petal {
+      position: absolute;
+      background: linear-gradient(to bottom right, #ffccff, #ff99e6);
+      width: 35px;
+      height: 25px;
+      border-radius: 50%;
+      opacity: 0;
+      transition: all 0.5s ease;
+    }
+    
+    .lily.bloomed .petal {
+      opacity: 1;
+    }
+    
+    /* Daisy */
+    .daisy {
+      background: radial-gradient(circle, #fff0f5, #ffcce6, #ffb3d9);
+    }
+    
+    .daisy .center {
+      width: 20px;
+      height: 20px;
+      background: #ff66b3;
+      border-radius: 50%;
+    }
+    
+    .daisy .petal {
+      position: absolute;
+      background: white;
+      width: 30px;
+      height: 15px;
+      border-radius: 50%;
+      opacity: 0;
+      transition: all 0.5s ease;
+    }
+    
+    .daisy.bloomed .petal {
+      opacity: 1;
+    }
+    
+    /* Stem */
+    .stem {
+      position: absolute;
+      background: linear-gradient(to bottom, #7cba92, #5e9d7d);
+      width: 8px;
+      height: 100px;
+      bottom: -100px;
+      z-index: 1;
+    }
+    
+    .message-container {
       max-height: 0;
       overflow: hidden;
-      color: #db7093;
+      transition: all 0.5s ease;
+      color: #d23c77;
       font-size: 0;
-      transition: all 1s ease-out;
       margin-top: 20px;
     }
     
-    .message.show {
+    .message-container.show {
       max-height: 200px;
-      font-size: 24px;
-      color: #db7093;
+      font-size: 20px;
     }
     
-    .petals {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
+    .romantic-message {
+      background: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: 20px auto;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
     
-    .petal {
-      position: absolute;
-      background: linear-gradient(to bottom right, #ffc0cb, #ff69b4);
-      border-radius: 50% 0 50% 50%;
-      opacity: 0;
-      transition: all 1s ease-out;
-    }
-    
-    .heart {
-      position: absolute;
-      font-size: 40px;
-      opacity: 0;
-      transition: all 1s ease-out;
-      color: #ff1493;
-      pointer-events: none;
-    }
-    
-    button {
-      background: linear-gradient(to right, #ff69b4, #ff1493);
+    .reset-btn {
+      background: linear-gradient(to right, #ff66b3, #ff3399);
       color: white;
       border: none;
-      padding: 12px 24px;
+      padding: 12px 25px;
       border-radius: 25px;
       font-size: 16px;
       cursor: pointer;
@@ -97,113 +227,156 @@
       transition: all 0.3s;
     }
     
-    button:hover {
+    .reset-btn:hover {
       transform: translateY(-3px);
       box-shadow: 0 6px 12px rgba(0,0,0,0.15);
     }
     
-    .bloom-text {
-      font-size: 18px;
-      color: #ff69b4;
-      margin-bottom: 20px;
+    .leaves {
+      position: absolute;
+      width: 20px;
+      height: 15px;
+      background: #7cba92;
+      border-radius: 50% 0 50% 50%;
+      z-index: 1;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1 style="color: #db7093;">Happy Girlfriend's Day Babe! May we always stay together.</h1>
-    <p class="bloom-text">Click or hover on the flower to make it bloom</p>
-    
-    <div class="flower" id="flower">
-      <div class="petals" id="petals"></div>
-      <div class="heart">❤️</div>
+  <h1>Happy Girlfriend's Day My Love! May we always be together forever no matter what.</h1>
+  <p>Click or hover on the flowers to see them bloom</p>
+  
+  <div class="bouquet">
+    <!-- Rose -->
+    <div class="flower rose" id="rose">
+      <div class="center"></div>
+      <div class="petal" style="transform: rotate(0deg) translateX(25px);"></div>
+      <div class="petal" style="transform: rotate(45deg) translateX(25px);"></div>
+      <div class="petal" style="transform: rotate(90deg) translateX(25px);"></div>
+      <div class="petal" style="transform: rotate(135deg) translateX(25px);"></div>
+      <div class="petal" style="transform: rotate(180deg) translateX(25px);"></div>
+      <div class="petal" style="transform: rotate(225deg) translateX(25px);"></div>
+      <div class="petal" style="transform: rotate(270deg) translateX(25px);"></div>
+      <div class="petal" style="transform: rotate(315deg) translateX(25px);"></div>
+      <div class="stem"></div>
+      <div class="leaves" style="bottom: -60px; left: 5px; transform: rotate(30deg);"></div>
+      <div class="leaves" style="bottom: -80px; right: 5px; transform: rotate(-30deg);"></div>
     </div>
     
-    <div class="message" id="message">
-      To the most amazing girlfriend in the world!<br>
-      Thank you for being you. ❤️
+    <!-- Tulip -->
+    <div class="flower tulip" id="tulip">
+      <div class="center"></div>
+      <div class="petal" style="transform: rotate(0deg) translateY(-15px);"></div>
+      <div class="petal" style="transform: rotate(72deg) translateY(-15px);"></div>
+      <div class="petal" style="transform: rotate(144deg) translateY(-15px);"></div>
+      <div class="petal" style="transform: rotate(216deg) translateY(-15px);"></div>
+      <div class="petal" style="transform: rotate(288deg) translateY(-15px);"></div>
+      <div class="stem"></div>
+      <div class="leaves" style="bottom: -70px; left: 5px; transform: rotate(20deg);"></div>
     </div>
     
-    <button id="resetBtn">Make it bloom again</button>
+    <!-- Lily -->
+    <div class="flower lily" id="lily">
+      <div class="center"></div>
+      <div class="petal" style="transform: rotate(0deg) translateX(30px);"></div>
+      <div class="petal" style="transform: rotate(60deg) translateX(30px);"></div>
+      <div class="petal" style="transform: rotate(120deg) translateX(30px);"></div>
+      <div class="petal" style="transform: rotate(180deg) translateX(30px);"></div>
+      <div class="petal" style="transform: rotate(240deg) translateX(30px);"></div>
+      <div class="petal" style="transform: rotate(300deg) translateX(30px);"></div>
+      <div class="stem"></div>
+      <div class="leaves" style="bottom: -50px; right: 5px; transform: rotate(-20deg);"></div>
+    </div>
+    
+    <!-- Daisy -->
+    <div class="flower daisy" id="daisy">
+      <div class="center"></div>
+      <div class="petal" style="transform: rotate(0deg) translateX(25px);"></div>
+      <div class="petal" style="transform: rotate(36deg) translateX(25px);"></div>
+      <div class="petal" style="transform: rotate(72deg) translateX(25px);"></div>
+      <div class="petal" style="transform: rotate(108deg) translateX(25px);"></div>
+      <div class="petal" style="transform: rotate(144deg) translateX(25px);"></div>
+      <div class="petal" style="transform: rotate(180deg) translateX(25px);"></div>
+      <div class="petal" style="transform: rotate(216deg) translateX(25px);"></div>
+      <div class="petal" style="transform: rotate(252deg) translateX(25px);"></div>
+      <div class="petal" style="transform: rotate(288deg) translateX(25px);"></div>
+      <div class="petal" style="transform: rotate(324deg) translateX(25px);"></div>
+      <div class="stem"></div>
+      <div class="leaves" style="bottom: -70px; left: 5px; transform: rotate(15deg);"></div>
+    </div>
+    
+    <div class="vase"></div>
   </div>
-
+  
+  <div class="message-container" id="messageContainer">
+    <div class="romantic-message" id="romanticMessage">
+      To the most beautiful girlfriend in the world,<br>
+      Each flower represents a reason why I love you.<br>
+      Happy Girlfriend's Day! ❤️
+    </div>
+  </div>
+  
+  <button class="reset-btn" id="resetBtn">Reset Bouquet</button>
+  
   <script>
-    const flower = document.getElementById('flower');
-    const message = document.getElementById('message');
-    const petalsContainer = document.getElementById('petals');
+    const flowers = document.querySelectorAll('.flower');
+    const messageContainer = document.getElementById('messageContainer');
+    const romanticMessage = document.getElementById('romanticMessage');
     const resetBtn = document.getElementById('resetBtn');
-    const heart = document.querySelector('.heart');
     
-    // Create petals
-    for (let i = 0; i < 12; i++) {
-      const petal = document.createElement('div');
-      petal.className = 'petal';
-      petalsContainer.appendChild(petal);
-    }
+    // Different romantic messages for each flower
+    const messages = {
+      rose: "Like this rose, your love makes my life beautiful and colorful.",
+      tulip: "Your love is as perfect as this tulip, brightening my every day.",
+      lily: "Pure and lovely like this lily, that's how your love feels to me.",
+      daisy: "Simple yet special, just like our love. You make me happy every day."
+    };
     
-    // Position petals in a circle
-    const petals = document.querySelectorAll('.petal');
-    const radius = 100;
-    const center = 100;
-    
-    petals.forEach((petal, index) => {
-      const angle = (index * 30) * (Math.PI / 180);
-      const x = center + radius * Math.cos(angle) - 15;
-      const y = center + radius * Math.sin(angle) - 15;
-      
-      petal.style.width = '30px';
-      petal.style.height = '30px';
-      petal.style.left = `${x}px`;
-      petal.style.top = `${y}px`;
-      petal.style.transform = `rotate(${index * 30}deg)`;
-    });
-    
-    // Bloom functions
-    function bloomFlower() {
+    // Bloom flower function
+    function bloomFlower(flower) {
       flower.classList.add('bloomed');
-      message.classList.add('show');
       
-      // Animate petals
-      petals.forEach(petal => {
-        petal.style.opacity = '1';
-        petal.style.transform += ' scale(1.5)';
-      });
+      // Change message based on flower
+      const flowerType = flower.id;
+      romanticMessage.textContent = messages[flowerType];
       
-      // Animate heart
-      setTimeout(() => {
-        heart.style.opacity = '1';
-        heart.style.transform = 'scale(1.5)';
-      }, 500);
-      
-      // Change background
-      document.body.style.background = '#fff0f5';
+      // Show message container
+      messageContainer.classList.add('show');
     }
     
-    function resetFlower() {
-      flower.classList.remove('bloomed');
-      message.classList.remove('show');
-      
-      petals.forEach(petal => {
-        petal.style.opacity = '0';
-        petal.style.transform = petal.style.transform.replace('scale(1.5)', '');
+    // Reset all flowers
+    function resetBouquet() {
+      flowers.forEach(flower => {
+        flower.classList.remove('bloomed');
       });
       
-      heart.style.opacity = '0';
-      heart.style.transform = 'scale(1)';
+      messageContainer.classList.remove('show');
       
-      document.body.style.background = '#fce4ec';
+      // Reset to default message
+      setTimeout(() => {
+        romanticMessage.textContent = "To the most beautiful girlfriend in the world,\nEach flower represents a reason why I love you.\nHappy Girlfriend's Day! ❤️";
+      }, 500);
     }
     
     // Event listeners
-    flower.addEventListener('click', bloomFlower);
-    flower.addEventListener('mouseenter', bloomFlower);
-    resetBtn.addEventListener('click', () => {
-      resetFlower();
-      setTimeout(bloomFlower, 100);
+    flowers.forEach(flower => {
+      flower.addEventListener('click', () => bloomFlower(flower));
+      flower.addEventListener('mouseenter', () => bloomFlower(flower));
     });
     
-    // Initial bloom after a delay
-    setTimeout(bloomFlower, 1000);
+    resetBtn.addEventListener('click', resetBouquet);
+    
+    // Initial animation - bloom all flowers briefly
+    setTimeout(() => {
+      flowers.forEach((flower, index) => {
+        setTimeout(() => {
+          bloomFlower(flower);
+        }, index * 300);
+      });
+    }, 1000);
+    
+    // Then reset after showing all
+    setTimeout(resetBouquet, 3000);
   </script>
 </body>
 </html>
